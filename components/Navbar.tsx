@@ -1,8 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { IoGlassesOutline } from "react-icons/io5";
 
+// Classnames is a utility for conditionally joining classnames together
+import classnames from "classnames";
+
 const Navbar = () => {
+  //hook to get the links
+  const currentPath = usePathname();
+  console.log(currentPath);
+
   // Array of links to display in the navbar
   const links = [
     { label: "Dashboard", href: "/" },
@@ -19,7 +29,11 @@ const Navbar = () => {
           <Link
             key={link.href}
             href={link.href}
-            className="text-zinc-500 hover:text-zinc-800 transition-colors"
+            className={classnames({
+              "text-zinc-900": currentPath === link.href,
+              "text-zinc-500": currentPath !== link.href,
+              "hover:text-zinc-800 transition-colors": true,
+            })}
           >
             {link.label}
           </Link>
